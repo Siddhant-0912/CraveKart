@@ -1,11 +1,24 @@
 import RestCard from "./RestCard";
-import restaurantList from "../utils/mockdata"
-import {useState} from "react"
+import {useState,useEffect} from "react"
 
 
 const Body = () => {
 
-    const [resList,setresList]=useState(restaurantList);
+    const [resList,setresList]=useState([]);
+
+    useEffect(() => {
+      fetchData();
+    },[]);
+
+    const fetchData= async () => {
+      const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.4250026382604&lng=80.30175682157278&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTINGhttps://www.swiggy.com/dapi/restaurants/list/v5?lat=26.4250026382604&lng=80.30175682157278&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+
+      const json=await data.json();
+
+      console.log(json);
+
+      setresList(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    };
 
 
   return (
