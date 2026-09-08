@@ -1,6 +1,6 @@
 import RestCard from "./RestCard";
 import {useState,useEffect} from "react"
-
+import Shimmer from "./Shimmer";
 
 const Body = () => {
 
@@ -19,6 +19,10 @@ const Body = () => {
 
       setresList(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     };
+
+    if(resList==0){
+      return <Shimmer />
+    }
 
 
   return (

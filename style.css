@@ -129,3 +129,23 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.Shimmer-container{
+   display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+    /* height: 6rem;
+    width: 3rem; */
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Shimmer-Cards{
+  height: 28rem;
+    width: 18rem;
+    /* border: 2px solid black; */
+    padding: 1rem;
+    margin: 0.7rem;
+    background-color: #f3f0ee;
+}
+
