@@ -1,10 +1,13 @@
 import RestCard from "./RestCard";
 import {useState,useEffect} from "react"
 import Shimmer from "./Shimmer";
+import { FaSearch } from "react-icons/fa";
 
 const Body = () => {
 
     const [resList,setresList]=useState([]);
+    const [allRestaurants, setAllRestaurants] = useState([]);//for search item so that search in original list
+    const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
       fetchData();
@@ -17,7 +20,10 @@ const Body = () => {
 
       console.log(json);
 
-      setresList(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      const restaurants = json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+
+      setresList(restaurants);
+      setAllRestaurants(restaurants);
     };
 
     if(resList==0){
@@ -27,6 +33,7 @@ const Body = () => {
 
   return (
     <div className="body">
+      
       <div className="filter-btn-container"> 
         <button className="filter-btn" onClick={() => {
             const filteredList=resList.filter((restaurant)=> restaurant.info.avgRating > 4.3);
@@ -36,6 +43,14 @@ const Body = () => {
         Top Rated Restaurant
         </button> 
         
+          <div className="Input-container">
+            <input type="text" className="Search-Box" placeholder="Search" onChange={(e) => setSearchText(e.target.value)}/>
+            <FaSearch className="search-icon" onClick={() => {
+                const searchedRest = allRestaurants.filter((restaurant) => restaurant.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                setresList(searchedRest);
+                }}
+              />
+           </div>
      </div>
       <div className="rest-container">
       {resList.map((restaurant) => (
